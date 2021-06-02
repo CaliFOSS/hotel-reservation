@@ -5,6 +5,22 @@
     <title>Title</title>
 </head>
 <body>
+    <table>
+        <thead>
+        <tr>
+            <th>Hotel</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reservation, stat : *{reservations}">
+            <td th:text="*{reservation.hotelName}" /></td>
+            <td th:text="*{reservation.hotelPricePerDay}" /></td>
+        </tr>
+        </tbody>
+    </table>
+
+
 
 </body>
 </html>

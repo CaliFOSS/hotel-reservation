@@ -1,6 +1,7 @@
 package hotelreservation.domain;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "rooms")
@@ -9,7 +10,7 @@ public class Room {
     @Id
     @GeneratedValue( strategy=GenerationType.AUTO )
     private int idrooms;
-    private Date date;
+    private LocalDate date;
     private int free_rooms;
 
 
@@ -19,7 +20,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(int idrooms, Date date, int free_rooms, Hotel hotel) {
+    public Room(int idrooms, LocalDate date, int free_rooms, Hotel hotel) {
         this.idrooms = idrooms;
         this.date = date;
         this.free_rooms = free_rooms;
@@ -35,11 +36,11 @@ public class Room {
         this.idrooms = idrooms;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
