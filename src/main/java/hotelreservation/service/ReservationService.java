@@ -29,7 +29,7 @@ public class ReservationService {
             System.out.println(rooms);
             if (rooms != null) {
                 HotelReservationHelper temp = new HotelReservationHelper(hotel.getName(), hotel.getAddress(),
-                        hotel.getStars(), hotel.getCity(), hotel.getState(), hotel.getPrice_per_day(), date);
+                        hotel.getStars(), hotel.getCity(), hotel.getState(), hotel.getPrice_per_day(), date, rooms.getFree_rooms());
                 availableReservations.add(temp);
             }
         });

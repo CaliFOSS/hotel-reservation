@@ -32,10 +32,18 @@ public class ReservationRequestModel {
 
     public ReservationRequestModel(){};
 
+    public ReservationRequestModel(String date, String city, String state) {
+        this.date = date;
+        this.city = city;
+        this.state = state;
+    }
+
     @Override
     public String toString(){
         return "Date: " +this.date + "  City: " + this.city + "  State: " + this.state;
     }
+
+
 
 
 }

@@ -1,12 +1,14 @@
 package hotelreservation.service;
 
 import hotelreservation.domain.*;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -26,12 +28,15 @@ public class ReservationServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    @Test
     public void testHotelReservation(){
         //hotel and dates to use
         Hotel mockHotel = new Hotel(1, "Weston", "12456 some address", 3, "Sacremento", "CA", 100);
         LocalDate date = LocalDate.parse("2021-06-01");
         // List we wil operate against
-        List<HotelReservationHelper> reservations = (List<HotelReservationHelper>) mockHotel;
+        List<HotelReservationHelper> reservations = new ArrayList<>();
+
+
 
         //provide mocks
         given(mockHotelRepository.findAll()).willReturn((List<Hotel>) mockHotel );

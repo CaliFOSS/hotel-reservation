@@ -20,7 +20,7 @@ public class ReservationRestController {
     ReservationService reservationService;
 
 
-    @PostMapping(value = "/api/search/",
+    @PostMapping(value = "/api/search",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<HotelReservationHelper>> getAvailableReservations(@RequestBody ReservationRequestModel reservationDetails){
@@ -31,7 +31,6 @@ public class ReservationRestController {
 
         System.out.println(reservations);
         return new ResponseEntity<List<HotelReservationHelper>>(reservations,HttpStatus.OK);
-
     }
 
 }
