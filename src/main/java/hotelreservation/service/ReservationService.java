@@ -26,7 +26,6 @@ public class ReservationService {
     public List<HotelReservationHelper> availableRoomsOneNight(LocalDate date){
 
         List<Hotel> hotels = hotelRepository.findAll();
-
         hotels.forEach((hotel)->{
             Room rooms = roomsRepository.findRoomsByHotelAndDate(hotel, date);
             System.out.println(rooms);
@@ -36,12 +35,17 @@ public class ReservationService {
                 availableReservations.add(temp);
             }
         });
-
-
         return availableReservations;
     }
 
+
     public ReservationService(){}
+
+    //constructor for dependency Injection
+    public ReservationService(HotelRepository hotelRepository, RoomsRepository roomsRepository){
+        this.hotelRepository = hotelRepository;
+        this.roomsRepository = roomsRepository;
+    }
 
 
 
