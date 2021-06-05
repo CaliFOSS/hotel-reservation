@@ -3,7 +3,7 @@ package hotelreservation.controller;
 public class ReservationRequestModel {
     private String date;
     private String city;
-    private char[] state = new char[2];
+    private String state;
 
 
     public String getDate() {
@@ -22,13 +22,22 @@ public class ReservationRequestModel {
         this.city = city;
     }
 
-    public char[] getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(char[] state) {
+    public void setState(String state) {
         this.state = state;
     }
+
+    public ReservationRequestModel(){};
+
+    @Override
+    public String toString(){
+        return "Date: " +this.date + "  City: " + this.city + "  State: " + this.state;
+    }
+
+
 }
 
 
