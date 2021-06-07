@@ -1,16 +1,21 @@
 package hotelreservation.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 public class HotelReservationHelper {
 
+    private int hotelId;
     private String hotelName;
     private String hotelAddress;
     private int hotelStars;
     private String hotelCity;
     private String hotelState;
     private int hotelPricePerDay;
+    //json formatter for the unit tests
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate availableDate;
     private int roomsAvailable;
 
@@ -33,6 +38,18 @@ public class HotelReservationHelper {
         this.hotelPricePerDay = hotelPricePerDay;
         this.availableDate = availableDate;
         this.roomsAvailable =roomsAvailable;
+    }
+
+    public HotelReservationHelper(int hotelId, String hotelName, String hotelAddress, int hotelStars, String hotelCity, String hotelState, int hotelPricePerDay, LocalDate availableDate, int roomsAvailable) {
+        this.hotelId = hotelId;
+        this.hotelName = hotelName;
+        this.hotelAddress = hotelAddress;
+        this.hotelStars = hotelStars;
+        this.hotelCity = hotelCity;
+        this.hotelState = hotelState;
+        this.hotelPricePerDay = hotelPricePerDay;
+        this.availableDate = availableDate;
+        this.roomsAvailable = roomsAvailable;
     }
 
     public String getHotelName() {
@@ -97,5 +114,13 @@ public class HotelReservationHelper {
 
     public void setRoomsAvailable(int roomsAvailable) {
         this.roomsAvailable = roomsAvailable;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 }

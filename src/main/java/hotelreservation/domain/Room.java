@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Room {
 
     @Id
-    @GeneratedValue( strategy=GenerationType.AUTO )
+    @GeneratedValue( strategy=GenerationType.IDENTITY )
     private int idrooms;
     private LocalDate date;
     private int free_rooms;
