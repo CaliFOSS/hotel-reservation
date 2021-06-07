@@ -73,6 +73,8 @@ public class ReservationService {
         Room rooms = roomsRepository.findRoomsByHotelAndDate(hotel, date);
 
         if (rooms.getFree_rooms() > 0){
+            rooms.setFree_rooms(rooms.getFree_rooms()-1);
+            roomsRepository.save(rooms);
             Reservation reservation = new Reservation(date, date.plusDays(1), hotel, user);
             reservationRepository.save(reservation);
             return reservation;

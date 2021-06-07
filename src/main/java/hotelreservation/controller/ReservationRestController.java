@@ -41,6 +41,7 @@ public class ReservationRestController {
         if (reservation == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(reservation);
         }
+
         return ResponseEntity.status(HttpStatus.OK).body(reservation);
     }
 }
