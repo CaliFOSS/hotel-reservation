@@ -1,19 +1,23 @@
 package hotelreservation.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HotelReservationHelper {
 
+    private int hotelId;
     private String hotelName;
     private String hotelAddress;
     private int hotelStars;
     private String hotelCity;
     private String hotelState;
     private int hotelPricePerDay;
-    private List<LocalDate> availableDate = new ArrayList<>();
+    //json formatter for the unit tests
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate availableDate;
+    private int roomsAvailable;
 
     public HotelReservationHelper(String hotelName, String hotelAddress, int hotelStars, String hotelCity, String hotelState, int hotelPricePerDay, LocalDate availableDate) {
         this.hotelName = hotelName;
@@ -22,7 +26,30 @@ public class HotelReservationHelper {
         this.hotelCity = hotelCity;
         this.hotelState = hotelState;
         this.hotelPricePerDay = hotelPricePerDay;
-        this.availableDate.add(availableDate);
+        this.availableDate = availableDate;
+    }
+    //built this constructor so didn't have to fix all past code.
+    public HotelReservationHelper(String hotelName, String hotelAddress, int hotelStars, String hotelCity, String hotelState, int hotelPricePerDay, LocalDate availableDate, int roomsAvailable) {
+        this.hotelName = hotelName;
+        this.hotelAddress = hotelAddress;
+        this.hotelStars = hotelStars;
+        this.hotelCity = hotelCity;
+        this.hotelState = hotelState;
+        this.hotelPricePerDay = hotelPricePerDay;
+        this.availableDate = availableDate;
+        this.roomsAvailable =roomsAvailable;
+    }
+
+    public HotelReservationHelper(int hotelId, String hotelName, String hotelAddress, int hotelStars, String hotelCity, String hotelState, int hotelPricePerDay, LocalDate availableDate, int roomsAvailable) {
+        this.hotelId = hotelId;
+        this.hotelName = hotelName;
+        this.hotelAddress = hotelAddress;
+        this.hotelStars = hotelStars;
+        this.hotelCity = hotelCity;
+        this.hotelState = hotelState;
+        this.hotelPricePerDay = hotelPricePerDay;
+        this.availableDate = availableDate;
+        this.roomsAvailable = roomsAvailable;
     }
 
     public String getHotelName() {
@@ -73,11 +100,27 @@ public class HotelReservationHelper {
         this.hotelPricePerDay = hotelPricePerDay;
     }
 
-    public List<LocalDate> getAvailableDate() {
+    public LocalDate getAvailableDate() {
         return availableDate;
     }
 
-    public void setAvailableDate(List<LocalDate> availableDate) {
+    public void setAvailableDate(LocalDate availableDate) {
         this.availableDate = availableDate;
+    }
+
+    public int getRoomsAvailable() {
+        return roomsAvailable;
+    }
+
+    public void setRoomsAvailable(int roomsAvailable) {
+        this.roomsAvailable = roomsAvailable;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 }

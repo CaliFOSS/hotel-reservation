@@ -1,34 +1,47 @@
 package hotelreservation.domain;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "reservations")
 public class Reservation {
 
     @Id
-    @GeneratedValue( strategy=GenerationType.AUTO )
+    @GeneratedValue( strategy=GenerationType.IDENTITY )
     private int idreservations;
     @Column(name = "start_date")
-    private Date startDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
     @Column(name = "end_date")
-    private Date endDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
 
     @ManyToOne
     private Hotel hotel;
 
     @ManyToOne
-    private Users user;
+    @JoinColumn(name = "users_idusers", referencedColumnName = "idusers")
+    private Users users;
 
     public Reservation() {
     }
 
-    public Reservation(int idreservations, Date startDate, Date enDate, Hotel hotel, Users user) {
+    public Reservation(int idreservations, LocalDate startDate, LocalDate endDate, Hotel hotel, Users users) {
         this.idreservations = idreservations;
         this.startDate = startDate;
         this.endDate = endDate;
         this.hotel = hotel;
-        this.user = user;
+        this.users = users;
+    }
+
+    public Reservation(LocalDate startDate, LocalDate endDate, Hotel hotel, Users users) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.hotel = hotel;
+        this.users = users;
     }
 
     public int getIdreservations() {
@@ -39,19 +52,21 @@ public class Reservation {
         this.idreservations = idreservations;
     }
 
-    public Date getStart_date() {
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getStart_date() {
         return startDate;
     }
 
-    public void setStart_date(Date start_date) {
+    public void setStart_date(LocalDate start_date) {
         this.startDate = start_date;
     }
 
-    public Date getEnd_date() {
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getEnd_date() {
         return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
+    public void setEnd_date(LocalDate end_date) {
         this.endDate = end_date;
     }
 
@@ -63,11 +78,11 @@ public class Reservation {
         this.hotel = hotel;
     }
 
-    public Users getUser() {
-        return user;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setUsers(Users user) {
+        this.users = user;
     }
 }

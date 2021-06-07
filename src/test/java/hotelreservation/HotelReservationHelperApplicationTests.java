@@ -1,4 +1,4 @@
-package cst438.hotelreservation;
+package hotelreservation;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +8,9 @@ class HotelReservationHelperApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
+
+
 
 }
