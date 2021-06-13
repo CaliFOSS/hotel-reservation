@@ -3,10 +3,7 @@ package hotelreservation.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hotelreservation.domain.Hotel;
-import hotelreservation.domain.HotelReservationHelper;
-import hotelreservation.domain.Reservation;
-import hotelreservation.domain.Users;
+import hotelreservation.domain.*;
 import hotelreservation.service.ReservationService;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,12 +39,13 @@ public class ReservationRestControllerTests {
     @MockBean
     private ReservationService reservationService;
 
-    private JacksonTester<HotelReservationHelper> json;
+    private LocalDate startDate1 =  LocalDate.parse("2021-06-01");
+    private LocalDate endDate1 =  LocalDate.parse("2021-06-02");
 
+    private JacksonTester<HotelReservationHelper> json;
     private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
     //Hotels
-    Hotel hotel1 = new Hotel(1, "weston", "123 any stree", 3, "Sacramento", "CA", 100);
-
+    private Hotel hotel1 = new Hotel(1, "weston", "123 any stree", 3, "Sacramento", "CA", 100);
     //hotelhelpers
     private HotelReservationHelper hotel_1 = new HotelReservationHelper(1, "weston", "123 any street",
             3, "Sacramento", "CA", 100, LocalDate.parse("2021-06-01"), 4 );
@@ -58,9 +56,12 @@ public class ReservationRestControllerTests {
 
     //setup list will be useful for multiple scenarios
     private List<HotelReservationHelper> expectedSearch = new ArrayList<>();
+    private Room rooms = new Room(1, startDate1, 10, hotel1);
 
     //Test users
-    Users user_1 = new Users(1,"jeff", "garrett", "adsf");
+    private Users user_1 = new Users(1,"jeff", "garrett", "adsf");
+    //reservations
+    private Reservation reservation1 = new Reservation(1, startDate1, endDate1, hotel1, user_1);
 
     @Before
     public void setup(){
@@ -133,5 +134,84 @@ public class ReservationRestControllerTests {
 
     }
 
+
+    @Test
+    public void cancelReservation() throws JsonProcessingException {
+
+
+        ReservationCancellationModel rawPayload = new ReservationCancellationModel(user_1.getIdusers(), reservation1.getIdreservations(), user_1.getPassword());
+        ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+        String payload = mapper.writeValueAsString(rawPayload);
+
+        //given
+        given(reservationService.cancelReservation(reservation1.getIdreservations(), user_1.getIdusers(), user_1.getPassword())).willReturn(HttpStatus.OK);
+
+        //Perform test
+        MockHttpServletResponse response = null;
+        try {
+            response = mvc2.perform(post("/api/reservation/cancel")
+                    .contentType("application/json")
+                    .content(payload)
+                    .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Validate
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void cancelReservationWrongPassword() throws JsonProcessingException {
+
+
+        ReservationCancellationModel rawPayload = new ReservationCancellationModel(user_1.getIdusers(), reservation1.getIdreservations(), "123");
+        ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+        String payload = mapper.writeValueAsString(rawPayload);
+
+        //given
+        given(reservationService.cancelReservation(reservation1.getIdreservations(), user_1.getIdusers(), "123")).willReturn(HttpStatus.FORBIDDEN);
+
+        //Perform test
+        MockHttpServletResponse response = null;
+        try {
+            response = mvc2.perform(post("/api/reservation/cancel")
+                    .contentType("application/json")
+                    .content(payload)
+                    .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Validate
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.FORBIDDEN.value());
+    }
+
+
+    @Test
+    public void cancelReservationNoReservation() throws JsonProcessingException {
+
+
+        ReservationCancellationModel rawPayload = new ReservationCancellationModel(user_1.getIdusers(), reservation1.getIdreservations(), user_1.getPassword());
+        ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+        String payload = mapper.writeValueAsString(rawPayload);
+
+        //given
+        given(reservationService.cancelReservation(reservation1.getIdreservations(), user_1.getIdusers(), user_1.getPassword())).willReturn(HttpStatus.NOT_FOUND);
+
+        //Perform test
+        MockHttpServletResponse response = null;
+        try {
+            response = mvc2.perform(post("/api/reservation/cancel")
+                    .contentType("application/json")
+                    .content(payload)
+                    .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Validate
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+    }
 
 }

@@ -44,4 +44,19 @@ public class ReservationRestController {
 
         return ResponseEntity.status(HttpStatus.OK).body(reservation);
     }
+
+    @PostMapping(value = "/api/reservation/cancel",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity cancellation(@RequestBody ReservationCancellationModel reservationCancellation){
+
+        ResponseEntity response = new ResponseEntity(
+            reservationService.cancelReservation(reservationCancellation.getReservationId(),
+                    reservationCancellation.getUserId(), reservationCancellation.getAuthToken())
+        );
+
+        return response;
+    }
+
+
 }

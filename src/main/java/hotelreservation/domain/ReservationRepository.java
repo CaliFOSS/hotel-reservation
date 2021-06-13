@@ -10,5 +10,6 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     List<Reservation> findByStartDateAndEndDate(Date StartDate, Date EndDate);
+    Reservation findByIdreservations(int id);
 
 }
