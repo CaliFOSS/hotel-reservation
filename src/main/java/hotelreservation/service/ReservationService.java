@@ -3,6 +3,7 @@ package hotelreservation.service;
 
 import hotelreservation.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,6 +24,9 @@ public class ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private UserService userService;
 
     //constructor
     public ReservationService(){}
@@ -80,6 +84,31 @@ public class ReservationService {
             return reservation;
         }else{
             return null;
+        }
+
+
+    }
+
+    public HttpStatus cancelReservation(int reservationId, int userId, String password){
+
+        if(userService.isAuthorized(userId, password)){
+            Reservation reservation = reservationRepository.findByIdreservations(reservationId);
+
+            if( reservation != null){
+                Room rooms = roomsRepository.findRoomsByDateAndHotel_Idhotel(reservation.getStart_date(), reservation.getHotel().getIdhotel());
+
+                rooms.setFree_rooms(rooms.getFree_rooms() + 1);
+                roomsRepository.save(rooms);
+                reservationRepository.delete(reservation);
+
+                return HttpStatus.OK;
+            }else{
+                return HttpStatus.NOT_FOUND;
+            }
+
+
+        }else{
+            return HttpStatus.FORBIDDEN;
         }
 
 

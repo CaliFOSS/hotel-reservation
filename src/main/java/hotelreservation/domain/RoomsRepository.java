@@ -8,5 +8,6 @@ import java.time.LocalDate;
 @Repository
 public interface RoomsRepository extends JpaRepository<Room, String> {
     Room findRoomsByHotelAndDate(Hotel hotel, LocalDate date);
+    Room findRoomsByDateAndHotel_Idhotel(LocalDate date, int hotelId );
 
 }
