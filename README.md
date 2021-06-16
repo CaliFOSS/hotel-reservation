@@ -2,7 +2,7 @@
 
 ## Description
 The Hotel reservation site is a Spring boot application designed to allow users to find and book hotel rooms. 
-We also partnered with a package deals site and have provided an API for them communicate.  The site uses and MVC and Entity frameworks. 
+We also partnered with a package deals site and have provided an API for them to communicate too.  The site uses an MVC and Entity frameworks. 
 
 ## Whats in the Repo
 
