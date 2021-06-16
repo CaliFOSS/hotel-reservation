@@ -10,16 +10,11 @@ public class UserService {
     @Autowired
     UsersRepository usersRepository;
 
-
     public boolean isAuthorized(int userId, String password){
-
+    	
        if( usersRepository.findByPasswordAndIdusers(password, userId) != null){
            return true;
        }
-
        return false;
     };
-
-
-
 }

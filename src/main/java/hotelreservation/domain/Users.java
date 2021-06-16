@@ -1,5 +1,6 @@
 package hotelreservation.domain;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +16,7 @@ public class Users {
     @Column(name = "last_name")
     private String lastName;
     private String password;
-
+    
     public Users() {
     }
 
