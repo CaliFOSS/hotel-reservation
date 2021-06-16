@@ -85,4 +85,15 @@ public class Reservation {
     public void setUsers(Users user) {
         this.users = user;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "idreservations=" + idreservations +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", hotel=" + hotel +
+                ", users=" + users +
+                '}';
+    }
 }

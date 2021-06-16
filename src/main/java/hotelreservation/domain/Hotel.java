@@ -84,6 +84,18 @@ public class Hotel {
         this.price_per_day = price_per_day;
     }
 
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "idhotel=" + idhotel +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", stars=" + stars +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", price_per_day=" + price_per_day +
+                '}';
+    }
 }
 
 

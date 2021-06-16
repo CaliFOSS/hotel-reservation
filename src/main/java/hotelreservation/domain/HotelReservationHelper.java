@@ -123,4 +123,19 @@ public class HotelReservationHelper {
     public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
     }
+
+    @Override
+    public String toString() {
+        return "HotelReservationHelper{" +
+                "hotelId=" + hotelId +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelAddress='" + hotelAddress + '\'' +
+                ", hotelStars=" + hotelStars +
+                ", hotelCity='" + hotelCity + '\'' +
+                ", hotelState='" + hotelState + '\'' +
+                ", hotelPricePerDay=" + hotelPricePerDay +
+                ", availableDate=" + availableDate +
+                ", roomsAvailable=" + roomsAvailable +
+                '}';
+    }
 }
