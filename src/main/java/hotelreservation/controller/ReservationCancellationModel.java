@@ -35,4 +35,13 @@ public class ReservationCancellationModel {
         this.reservationId = reservationId;
         this.authToken = authToken;
     }
+
+    @Override
+    public String toString() {
+        return "ReservationCancellationModel{" +
+                "userId=" + userId +
+                ", reservationId=" + reservationId +
+                ", authToken='" + authToken + '\'' +
+                '}';
+    }
 }
