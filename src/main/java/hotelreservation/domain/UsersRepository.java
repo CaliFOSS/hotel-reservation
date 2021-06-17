@@ -8,5 +8,5 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     Users findByLastName(String lastname);
     Users findByidusers(int id);
     Users findByPasswordAndIdusers(String password, int id);
-
+    Users findByfirstNameAndPassword(String firstName, String password);
 }
