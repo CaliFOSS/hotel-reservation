@@ -1,7 +1,7 @@
 package hotelreservation.service;
 
 import hotelreservation.domain.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
