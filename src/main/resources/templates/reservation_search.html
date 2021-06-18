@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<title>Title</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 </head>
 <body>
-
-  <p> Search for Available rooms</p>
-
-  <form action="/hotel/search" method="post">
-    <label for="date" required>Date:</label>
-    <input type="date" id="date" name="date" value=""><br>
-    <input type="submit" value="Submit">
-  </form>
-
+	<div class="container bd-content">
+		<p>Search for Available rooms</p>
+		<form action="/hotel/search" method="post">
+			<label for="date" required>Date:</label>
+			<input type="date" id="date"name="date" value="">
+			<br> 
+			<input type="submit" value="Submit">
+		</form>
+	</div>
 </body>
 </html>

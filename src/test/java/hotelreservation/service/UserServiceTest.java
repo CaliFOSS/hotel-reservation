@@ -43,5 +43,16 @@ class UserServiceTest extends UserService {
 		
 		assertEquals(expected, actual);
 	}
-
+	@Test
+	void isNotAuthorizedTest() {
+		Users user = new Users(1,"testFName","testLName","testPass");
+		
+		when(mockUserRepo.findByPasswordAndIdusers(user.getPassword(),user.getIdusers()))
+		.thenReturn(user);
+		
+		Boolean actual = userService.isAuthorized(user.getIdusers(), user.getPassword());
+		Boolean expected = true;
+		
+		assertEquals(expected, actual);
+	}
 }
