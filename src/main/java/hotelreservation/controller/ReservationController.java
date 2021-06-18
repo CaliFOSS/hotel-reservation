@@ -60,11 +60,7 @@ public class ReservationController {
     	return "index";
     }
     
-//    @RequestMapping("login_error")
-//    public String loginError(Model model) {
-//    	model.addAttribute("loginError", true);
-//    	return "login";
-//    }
+//    @GetMapping("/reservation/delete")
     
     @GetMapping("/hotel/search")
     public String searchForReservation(){
