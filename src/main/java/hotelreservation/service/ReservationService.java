@@ -80,7 +80,7 @@ public class ReservationService {
 
         Hotel hotel = hotelRepository.findHotelByIdhotel(hotelId);
         Users user = usersRepository.findByidusers(Userid);
-        if(userService.isAuthorized(user.getIdusers(), user.getPassword())) {
+        if(userService.isAuthorized(Userid, authToken)) {
 
             //check for available rooms
             Room rooms = roomsRepository.findRoomsByHotelAndDate(hotel, date);
