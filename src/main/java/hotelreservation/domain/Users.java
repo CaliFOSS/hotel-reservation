@@ -15,6 +15,9 @@ public class Users {
     @Column(name = "last_name")
     private String lastName;
     private String password;
+    @Transient
+    private boolean isAuthenticated = false;
+
 
     public Users() {
     }
@@ -56,6 +59,14 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isAuthenticated() {
+        return isAuthenticated;
+    }
+
+    public void setAuthenticated(boolean authenticated) {
+        isAuthenticated = authenticated;
     }
 
     @Override
