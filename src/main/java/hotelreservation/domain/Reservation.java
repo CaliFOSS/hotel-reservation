@@ -1,6 +1,7 @@
 package hotelreservation.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,6 +27,11 @@ public class Reservation {
     @JoinColumn(name = "users_idusers", referencedColumnName = "idusers")
     private Users users;
 
+    @Transient
+    private String error;
+    @Transient
+    private HttpStatus errorCode;
+
     public Reservation() {
     }
 
@@ -42,6 +48,11 @@ public class Reservation {
         this.endDate = endDate;
         this.hotel = hotel;
         this.users = users;
+    }
+
+    public Reservation(String error, HttpStatus errorCode) {
+        this.error = error;
+        this.errorCode = errorCode;
     }
 
     public int getIdreservations() {
@@ -95,5 +106,21 @@ public class Reservation {
                 ", hotel=" + hotel +
                 ", users=" + users +
                 '}';
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public HttpStatus getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(HttpStatus errorCode) {
+        this.errorCode = errorCode;
     }
 }

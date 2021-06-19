@@ -46,9 +46,11 @@ public class ReservationRestController {
         System.out.println(reservationRequest.toString());
 
         LocalDate localDate = LocalDate.parse(reservationRequest.getDate());
-        Reservation reservation = reservationService.bookReservation(reservationRequest.getHotelId(), localDate, reservationRequest.getUserId());
-        if (reservation == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(reservation);
+        Reservation reservation = reservationService.bookReservation(reservationRequest.getHotelId(), localDate, reservationRequest.getUserId(), reservationRequest.getAuthToken());
+        if(reservation == null){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(reservation);
+        }else if(reservation.getError() != null){
+            return ResponseEntity.status(reservation.getErrorCode()).body(reservation);
         }
 
         System.out.println("Outgoing API: ");

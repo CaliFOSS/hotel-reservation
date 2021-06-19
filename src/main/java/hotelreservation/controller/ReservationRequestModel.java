@@ -81,14 +81,24 @@ public class ReservationRequestModel {
         this.userId = userId;
     }
 
-    @Override
-    public String toString(){
-        return "Date: " +this.date + "  City: " + this.city + "  State: " + this.state;
+    public ReservationRequestModel(String date, int hotelId, String authToken, int userId) {
+        this.date = date;
+        this.authToken = authToken;
+        this.hotelId = hotelId;
+        this.userId = userId;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "ReservationRequestModel{" +
+                "date='" + date + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", authToken='" + authToken + '\'' +
+                ", hotelId=" + hotelId +
+                ", userId=" + userId +
+                '}';
+    }
 }
 
 
