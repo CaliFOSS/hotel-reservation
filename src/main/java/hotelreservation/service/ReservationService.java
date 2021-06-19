@@ -32,9 +32,19 @@ public class ReservationService {
     public ReservationService(){}
 
     //constructor for dependency Injection
-    public ReservationService(HotelRepository hotelRepository, RoomsRepository roomsRepository){
+    public ReservationService(HotelRepository hotelRepository, RoomsRepository roomsRepository, UserService userService, UsersRepository usersRepository){
         this.hotelRepository = hotelRepository;
         this.roomsRepository = roomsRepository;
+        this.userService = userService;
+        this.usersRepository = usersRepository;
+    }
+
+    public ReservationService(HotelRepository hotelRepository, UsersRepository usersRepository, RoomsRepository roomsRepository, ReservationRepository reservationRepository, UserService userService) {
+        this.hotelRepository = hotelRepository;
+        this.usersRepository = usersRepository;
+        this.roomsRepository = roomsRepository;
+        this.reservationRepository = reservationRepository;
+        this.userService = userService;
     }
 
     //internal function for easy reuse
@@ -66,29 +76,32 @@ public class ReservationService {
     }
 
     //used by rest service
-    public Reservation bookReservation(int hotelId, LocalDate date, int Userid){
+    public Reservation bookReservation(int hotelId, LocalDate date, int Userid, String authToken){
 
         Hotel hotel = hotelRepository.findHotelByIdhotel(hotelId);
         Users user = usersRepository.findByidusers(Userid);
+        if(userService.isAuthorized(user.getIdusers(), user.getPassword())) {
 
-        //TODO: update to check if reservation exists first
+            //check for available rooms
+            Room rooms = roomsRepository.findRoomsByHotelAndDate(hotel, date);
 
-        //check for available rooms
-        Room rooms = roomsRepository.findRoomsByHotelAndDate(hotel, date);
-
-        if (rooms.getFree_rooms() > 0){
-            rooms.setFree_rooms(rooms.getFree_rooms()-1);
-            roomsRepository.save(rooms);
-            Reservation reservation = new Reservation(date, date.plusDays(1), hotel, user);
-            reservationRepository.save(reservation);
-            return reservation;
+            if (rooms.getFree_rooms() > 0) {
+                rooms.setFree_rooms(rooms.getFree_rooms() - 1);
+                roomsRepository.save(rooms);
+                Reservation reservation = new Reservation(date, date.plusDays(1), hotel, user);
+                reservationRepository.save(reservation);
+                return reservation;
+            } else {
+                Reservation reservation = new Reservation("No Reservations available", HttpStatus.NOT_FOUND);
+                return reservation;
+            }
         }else{
-            return null;
+            Reservation reservation = new Reservation("User Not found", HttpStatus.FORBIDDEN);
+            return reservation;
         }
-
-
     }
 
+    //used by rest service
     public HttpStatus cancelReservation(int reservationId, int userId, String password){
 
         if(userService.isAuthorized(userId, password)){

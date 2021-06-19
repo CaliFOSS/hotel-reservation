@@ -34,7 +34,8 @@ public class ReservationRestControllerTests {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired MockMvc mvc2;
+    @Autowired
+    private MockMvc mvc2;
 
     @MockBean
     private ReservationService reservationService;
@@ -102,7 +103,7 @@ public class ReservationRestControllerTests {
         LocalDate startDate = LocalDate.parse("2021-06-01");
         LocalDate endDate = LocalDate.parse("2021-06-02");
 
-        ReservationRequestModel rawPayload = new ReservationRequestModel("2021-06-01", "asdf", hotel1.getIdhotel(), user_1.getIdusers());
+        ReservationRequestModel rawPayload = new ReservationRequestModel("2021-06-01", user_1.getPassword(), hotel1.getIdhotel(), user_1.getIdusers());
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
         String payload = mapper.writeValueAsString(rawPayload);
 
@@ -111,7 +112,7 @@ public class ReservationRestControllerTests {
         String expectedPayload = mapper.writeValueAsString(reservation);
 
         //given
-        given(reservationService.bookReservation(1, LocalDate.parse("2021-06-01"), 1)).willReturn(reservation);
+        given(reservationService.bookReservation(1, LocalDate.parse("2021-06-01"), user_1.getIdusers(), user_1.getPassword() )).willReturn(reservation);
 
         //Perform test
         MockHttpServletResponse response = null;
