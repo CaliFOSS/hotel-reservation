@@ -1,13 +1,12 @@
 package hotelreservation.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import hotelreservation.domain.Status;
 import hotelreservation.domain.Users;
 import hotelreservation.domain.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LoginService{
@@ -15,8 +14,10 @@ public class LoginService{
 
 	@Autowired
 	UsersRepository userRepo;
-	
-	public Status logMeIn(Users user) {
+
+	//Using User service instead.
+	public Users logMeIn(Users user) {
+		Users tempUser = user;
 		String firstName = user.getFirstName();
 		String password = user.getPassword();
 		
@@ -30,13 +31,16 @@ public class LoginService{
 			System.out.println("Firstname2: " + other.getFirstName() +
 					   " Password2: " + other.getPassword());
 			if(other.getFirstName().equals(user.getFirstName()) && other.getPassword().equals(user.getPassword())) {
-				return Status.SUCCESS;
+				tempUser.setAuthenticated(true);
+				return tempUser;
+
+
 			}
 		}
-		return Status.FAILURE;
+		return user;
 	}
 	
-	public Status logMeOut() {
+	public Status logMeOut(Users user) {
 		
 		return Status.FAILURE;
 	}

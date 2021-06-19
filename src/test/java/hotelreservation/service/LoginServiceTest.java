@@ -1,22 +1,19 @@
 package hotelreservation.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import hotelreservation.domain.Status;
+import hotelreservation.domain.Users;
+import hotelreservation.domain.UsersRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import hotelreservation.domain.Status;
-import hotelreservation.domain.Users;
-import hotelreservation.domain.UsersRepository;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 class LoginServiceTest extends LoginService {
 
@@ -41,7 +38,7 @@ class LoginServiceTest extends LoginService {
 		
 		when(mockUserRepo.findAll()).thenReturn(users);
 		
-		Status actual = loginService.logMeIn(user);
+		Users actual = loginService.logMeIn(user);
 		Status expected = Status.SUCCESS;
 		
 		assertEquals(expected, actual);
@@ -55,7 +52,7 @@ class LoginServiceTest extends LoginService {
 		
 		when(mockUserRepo.findAll()).thenReturn(users);
 		
-		Status actual = loginService.logMeIn(user);
+		Users actual = loginService.logMeIn(user);
 		Status expected = Status.FAILURE;
 		
 		assertEquals(expected, actual);
